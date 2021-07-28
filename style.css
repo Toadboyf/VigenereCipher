@@ -1,0 +1,52 @@
+
+.button {
+  background-color: goldenrod;
+  border: none;
+  border-radius: 10px;
+  color: floralwhite;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 8px 4px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:enabled:hover {
+  background-color:darkred;
+}
+
+.wrapper {
+  margin:0 auto;
+  text-align: center;
+  padding: 1rem;
+  min-height: 100vh;
+  background-color:cornsilk;
+}
+
+textarea {
+  padding: 0.5rem;
+  background-color: floralwhite;
+  font-size: 20px;
+}
+
+.customText1 {
+  display: block;
+  width: 100%;
+  margin: 0.5rem auto 1rem;
+  max-width: 30rem;
+}
+
+.key {
+  font-size: 20px;
+}
+
+.keyText {
+  font-size: 20px;
+}
