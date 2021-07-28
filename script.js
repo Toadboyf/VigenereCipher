@@ -1,19 +1,23 @@
-const decrypt = document.querySelector('.decrypt');
-const encrypt = document.querySelector('.encrypt');
+const decryptButton = document.querySelector('.decrypt');
+const encryptButton = document.querySelector('.encrypt');
+const inputKey = document.querySelector('.keyText').getAttribute('value');
+const popup = document.querySelector('.encryptedPopup');
+const encryptMessage = document.querySelector('.message').innerHTML;
+let popupped = false;
 const charLibrary = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ',',','.'];
 
-let inputMessage;
-let inputKey;
-
-decrypt.addEventListener('click', event => {
-    console.log('clicked');
-    encrypt.removeAttribute('disabled');
-    decrypt.setAttribute('disabled', true);
+encryptButton.addEventListener('click', event => {
+    //encrypts the message and makes the encrypted message box popup
+    console.log(inputKey);
+    messageEncrypter(encryptMessage, inputKey)
+    decryptButton.removeAttribute('disabled');
+    encryptButton.setAttribute('disabled', true);
 })
-encrypt.addEventListener('click', event => {
+decryptButton.addEventListener('click', event => {
+    //decrypts the message and refills the main message text box
     console.log('clicked');
-    decrypt.removeAttribute('disabled');
-    encrypt.setAttribute('disabled', true);
+    encryptButton.removeAttribute('disabled');
+    decryptButton.setAttribute('disabled', true);
 })
 
 /*
@@ -26,6 +30,9 @@ function messageEncrypter(message, key) {
   //Create variable to hold encrypted message
   //loop through message(string) and key(string) inputs one char at a time
 	  //compare character at message and key and plug into function to  create the encrypted character
+  if(message === null || key === null) {
+    return;
+  }
   let newMessage = "";
   let mIndex = 0;
   let kIndex = 0;
@@ -42,12 +49,19 @@ function messageEncrypter(message, key) {
   console.log('Original  Message: ' + message);
   console.log('Key              : ' + key);
   console.log('Encrypted Message: ' + newMessage);
+  if(popupped === false) {
+    //create new element inside encryptedPopup
+    createPopup(newMessage);
+  }
 }
 
 function messageDecrypter(cipher, key) {
   //Create variable to hold decrypted message
   //loop through cipher(string) and key(string) inputs one char at a time
 	  //compare character at message and key and plug into function to  create the encrypted character
+  if(cipher === null || key === null) {
+    return;
+  }
   let newMessage = "";
   let cIndex = 0;
   let kIndex = 0;
@@ -79,5 +93,24 @@ function decrypter(cChar, kChar) {
   const newIndex = (charLibrary.indexOf(cChar) - charLibrary.indexOf(kChar) + charLibrary.length) % charLibrary.length;
   const newChar = charLibrary[newIndex];
   return newChar;
+}
+
+function createPopup(message) {
+  let p = document.createElement("p");
+  p.className = "popupBox";
+  let pText = document.createTextNode(message);
+
+  let header = document.createElement("h2");
+  header.className = "messageHeader";
+  let headerText = document.createTextNode('Your Encrypted Message');
+  
+
+  p.appendChild(header);
+  p.appendChild(pText);
+  header.appendChild(headerText);
+  
+  popup.appendChild(p);
+
+  popupped = true;
 }
 
