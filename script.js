@@ -102,7 +102,8 @@ function createPopup(message, crypt) {
   header.appendChild(headerText);
   
   document.querySelector(".wrapper").appendChild(p);
-
+  document.querySelector('.message').innerText = message;
+	
   poppedup = true;
 }
 
