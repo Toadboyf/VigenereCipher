@@ -54,11 +54,25 @@ textarea {
 
 .popupBox {
   padding: 2rem;
-  display: block;
+  padding-top: 0.3rem;
+  border-style: solid;
+  border-radius: 0.5rem;
+  border-color: darkgray;
   width: 100%;
-  margin: 0.5rem auto 1rem;
+  margin:0.5rem auto;
   max-width: 30rem;
   background-color: floralwhite;
   font-size: 20px;
   word-break: break-all;
+  animation-duration: 1s;
+  animation-name: popup;
+}
+
+@keyframes popup {
+  from {
+    opacity:0%;
+  }
+  to {
+    opacity:100%;
+  }
 }

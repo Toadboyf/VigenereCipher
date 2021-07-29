@@ -1,14 +1,12 @@
 const decryptButton = document.querySelector('.decrypt');
 const encryptButton = document.querySelector('.encrypt');
 const inputKey = document.querySelector('.keyText').getAttribute('value');
-const popup = document.querySelector('.encryptedPopup');
-const encryptMessage = document.querySelector('.message').innerHTML;
-let popupped = false;
+let encryptMessage = document.querySelector('.message').innerHTML;
+let poppedup = false;
 const charLibrary = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ',',','.'];
 
 encryptButton.addEventListener('click', event => {
     //encrypts the message and makes the encrypted message box popup
-    console.log(inputKey);
     messageEncrypter(encryptMessage, inputKey)
     decryptButton.removeAttribute('disabled');
     encryptButton.setAttribute('disabled', true);
@@ -19,12 +17,6 @@ decryptButton.addEventListener('click', event => {
     encryptButton.removeAttribute('disabled');
     decryptButton.setAttribute('disabled', true);
 })
-
-/*
-if(inputMessage !== null && inputKey !== null) {
-  messageEncrypter(inputMessage, inputKey);
-}
-*/
 
 function messageEncrypter(message, key) {
   //Create variable to hold encrypted message
@@ -49,9 +41,10 @@ function messageEncrypter(message, key) {
   console.log('Original  Message: ' + message);
   console.log('Key              : ' + key);
   console.log('Encrypted Message: ' + newMessage);
-  if(popupped === false) {
-    //create new element inside encryptedPopup
-    createPopup(newMessage);
+  if(!poppedup) {
+    createPopup(newMessage, 'Encrypted');
+  } else {
+
   }
 }
 
@@ -77,6 +70,7 @@ function messageDecrypter(cipher, key) {
   console.log('Encrypted  Message: ' + cipher);
   console.log('Key               : ' + key);
   console.log('Decrypted  Message: ' + newMessage);
+  createPopup(newMessage, 'Decrypted');
 }
 
 function encrypter(mChar, kChar) {
@@ -95,22 +89,20 @@ function decrypter(cChar, kChar) {
   return newChar;
 }
 
-function createPopup(message) {
+function createPopup(message, crypt) {
+  let notifyText = crypt;
   let p = document.createElement("p");
-  p.className = "popupBox";
   let pText = document.createTextNode(message);
-
   let header = document.createElement("h2");
+  let headerText = document.createTextNode('Your ' + notifyText + ' Message');
+  p.className = "popupBox";
   header.className = "messageHeader";
-  let headerText = document.createTextNode('Your Encrypted Message');
-  
-
   p.appendChild(header);
   p.appendChild(pText);
   header.appendChild(headerText);
   
-  popup.appendChild(p);
+  document.querySelector(".wrapper").appendChild(p);
 
-  popupped = true;
+  poppedup = true;
 }
 
