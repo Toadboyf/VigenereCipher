@@ -1,2 +1,2 @@
 # VigenereCipher
- Create a Vigenere Cippher program
+ Create a Vigenere Cipher program
