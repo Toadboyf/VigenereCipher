@@ -30,6 +30,7 @@ function messageScrambler(message, key, type) {
     if(kIndex > key.length-1) {
       kIndex = 0;
     }
+    //check whether its encrypting or decrypting text
     if(type === 'Encrypted') {
       newMessage += encrypter(message[mIndex],key[kIndex])
     } else {
@@ -42,7 +43,7 @@ function messageScrambler(message, key, type) {
   console.log('Original  Message: ' + message);
   console.log('Key              : ' + key);
   console.log('Encrypted Message: ' + newMessage);
-  //check if the message is already popped up
+  //check if the message is already popped up, if so, just replaces the text in the popup.
   if(!poppedup) {
     createPopup(newMessage, type);
   } else {
@@ -68,6 +69,7 @@ function decrypter(cChar, kChar) {
 }
 
 function createPopup(message, crypt) {
+  //Creating elements that make up the popup message
   let div = document.createElement("div");
   let header = document.createElement("h2");
   let headerText = document.createTextNode('Your ' + crypt + ' Message');
@@ -76,21 +78,24 @@ function createPopup(message, crypt) {
   div.className = "popupBox";
   p.className = "popupText";
   header.className = "popupHeader";
+  //appending to parents, this is where different elements can be ordered.
   div.appendChild(header);
   div.appendChild(p);
   p.appendChild(pText);
   header.appendChild(headerText);
   document.querySelector(".wrapper").appendChild(div);
-  
+  //Set bool to true, so it does not create anymore elements
   poppedup = true;
 }
 
 function replacePopup(message, crypt) {
+  //Replacing the popup text rather than deleting elements and creating new ones every time.
   document.querySelector('.popupHeader').innerText = 'Your ' + crypt + ' Message';
   document.querySelector('.popupText').innerText = message;
 }
 
 function pushButton(type) {
+  //Triggers on button push
   encryptMessage = document.querySelector('.message').value;
   inputKey = document.querySelector('.keyText').value;
   messageScrambler(encryptMessage, inputKey, type);
