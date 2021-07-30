@@ -66,6 +66,7 @@ textarea {
   word-break: break-all;
   animation-duration: 1s;
   animation-name: popup;
+  box-shadow: 1rem black;
 }
 
 @keyframes popup {

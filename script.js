@@ -10,16 +10,12 @@ encryptButton.addEventListener('click', event => {
     encryptMessage = document.querySelector('.message').value;
     inputKey = document.querySelector('.keyText').value;
     messageEncrypter(encryptMessage, inputKey)
-    //decryptButton.removeAttribute('disabled');
-    //encryptButton.setAttribute('disabled', true);
 })
 decryptButton.addEventListener('click', event => {
-    //decrypts the message and refills the main message text box
+    //decrypts the message and replaces the popup text
     encryptMessage = document.querySelector('.message').value;
     inputKey = document.querySelector('.keyText').value;
     messageDecrypter(encryptMessage, inputKey)
-    //encryptButton.removeAttribute('disabled');
-    //decryptButton.setAttribute('disabled', true);
 })
 
 function messageEncrypter(message, key) {
@@ -117,7 +113,7 @@ function createPopup(message, crypt) {
 }
 
 function replacePopup(message, crypt) {
-  document.querySelector('.popupHeader').value = 'Your ' + crypt + ' Message';
+  document.querySelector('.popupHeader').innerText = 'Your ' + crypt + ' Message';
   document.querySelector('.popupText').innerText = message;
 }
 
