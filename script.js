@@ -3,7 +3,7 @@ const encryptButton = document.querySelector('.encrypt');
 let inputKey = '';
 let encryptMessage = '';
 let poppedup = false;
-const charLibrary = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ',',','.'];
+const charLibrary = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ',',','.','?','!'];
 
 encryptButton.addEventListener('click', event => {
     //encrypts the message and makes the encrypted message box popup
