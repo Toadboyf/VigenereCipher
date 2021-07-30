@@ -1,21 +1,25 @@
 const decryptButton = document.querySelector('.decrypt');
 const encryptButton = document.querySelector('.encrypt');
-const inputKey = document.querySelector('.keyText').getAttribute('value');
-let encryptMessage = document.querySelector('.message').innerHTML;
+let inputKey = '';
+let encryptMessage = '';
 let poppedup = false;
 const charLibrary = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ',',','.'];
 
 encryptButton.addEventListener('click', event => {
     //encrypts the message and makes the encrypted message box popup
+    encryptMessage = document.querySelector('.message').value;
+    inputKey = document.querySelector('.keyText').value;
     messageEncrypter(encryptMessage, inputKey)
-    decryptButton.removeAttribute('disabled');
-    encryptButton.setAttribute('disabled', true);
+    //decryptButton.removeAttribute('disabled');
+    //encryptButton.setAttribute('disabled', true);
 })
 decryptButton.addEventListener('click', event => {
     //decrypts the message and refills the main message text box
-    console.log('clicked');
-    encryptButton.removeAttribute('disabled');
-    decryptButton.setAttribute('disabled', true);
+    encryptMessage = document.querySelector('.message').value;
+    inputKey = document.querySelector('.keyText').value;
+    messageDecrypter(encryptMessage, inputKey)
+    //encryptButton.removeAttribute('disabled');
+    //decryptButton.setAttribute('disabled', true);
 })
 
 function messageEncrypter(message, key) {
@@ -44,7 +48,7 @@ function messageEncrypter(message, key) {
   if(!poppedup) {
     createPopup(newMessage, 'Encrypted');
   } else {
-
+    replacePopup(newMessage, 'Encrypted');
   }
 }
 
@@ -70,7 +74,11 @@ function messageDecrypter(cipher, key) {
   console.log('Encrypted  Message: ' + cipher);
   console.log('Key               : ' + key);
   console.log('Decrypted  Message: ' + newMessage);
-  createPopup(newMessage, 'Decrypted');
+  if(!poppedup) {
+    createPopup(newMessage, 'Decrypted');
+  } else {
+    replacePopup(newMessage, 'Decrypted');
+  }
 }
 
 function encrypter(mChar, kChar) {
@@ -90,20 +98,26 @@ function decrypter(cChar, kChar) {
 }
 
 function createPopup(message, crypt) {
-  let notifyText = crypt;
-  let p = document.createElement("p");
-  let pText = document.createTextNode(message);
+  let div = document.createElement("div");
   let header = document.createElement("h2");
-  let headerText = document.createTextNode('Your ' + notifyText + ' Message');
-  p.className = "popupBox";
-  header.className = "messageHeader";
-  p.appendChild(header);
+  let headerText = document.createTextNode('Your ' + crypt + ' Message');
+  let p = document.createElement('p');
+  let pText = document.createTextNode(message);
+  div.className = "popupBox";
+  p.className = "popupText";
+  header.className = "popupHeader";
+  div.appendChild(header);
+  div.appendChild(p);
   p.appendChild(pText);
   header.appendChild(headerText);
+  document.querySelector(".wrapper").appendChild(div);
   
-  document.querySelector(".wrapper").appendChild(p);
-  document.querySelector('.message').innerText = message;
 	
   poppedup = true;
+}
+
+function replacePopup(message, crypt) {
+  document.querySelector('.popupHeader').value = 'Your ' + crypt + ' Message';
+  document.querySelector('.popupText').innerText = message;
 }
 
