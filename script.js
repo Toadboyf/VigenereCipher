@@ -7,11 +7,11 @@ const charLibrary = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'
 
 encryptButton.addEventListener('click', event => {
     //encrypts the message and makes the encrypted message box popup
-    pushButton('encrypter');
+    pushButton('Encrypted');
 })
 decryptButton.addEventListener('click', event => {
     //decrypts the message and replaces the popup text
-    pushButton('decrypter');
+    pushButton('Decrypted');
 })
 
 function messageScrambler(message, key, type) {
@@ -47,14 +47,14 @@ function messageScrambler(message, key, type) {
 }
 
 const cryptoScramblers = {
-  encrypter: function (mChar, kChar) {
+  Encrypted: function (mChar, kChar) {
     //take in a message character and a key character and use vignere cipher function to encrypt the message char using the key char as a key.
     //Cipher Encryption function: (mCharIndex + kCharIndex) % 26
     const newIndex = (charLibrary.indexOf(mChar) + charLibrary.indexOf(kChar)) % charLibrary.length;
     const newChar = charLibrary[newIndex];
     return newChar;
   },
-  decrypter: function decrypter(cChar, kChar) {
+  Decrypted: function decrypter(cChar, kChar) {
     //take in a cipher character and the key character and use vignere cipher function to decrypt the message char using the key char as a key.
     //Cipher Decryption function: (cCharIndex - kCharIndex + 26) % 26
     const newIndex = (charLibrary.indexOf(cChar) - charLibrary.indexOf(kChar) + charLibrary.length) % charLibrary.length;
