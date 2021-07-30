@@ -7,11 +7,11 @@ const charLibrary = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'
 
 encryptButton.addEventListener('click', event => {
     //encrypts the message and makes the encrypted message box popup
-    pushButton('Encrypted');
+    pushButton('encrypter');
 })
 decryptButton.addEventListener('click', event => {
     //decrypts the message and replaces the popup text
-    pushButton('Decrypted');
+    pushButton('decrypter');
 })
 
 function messageScrambler(message, key, type) {
@@ -30,12 +30,7 @@ function messageScrambler(message, key, type) {
     if(kIndex > key.length-1) {
       kIndex = 0;
     }
-    //check whether its encrypting or decrypting text
-    if(type === 'Encrypted') {
-      newMessage += encrypter(message[mIndex],key[kIndex])
-    } else {
-      newMessage += decrypter(message[mIndex],key[kIndex])
-    }
+    newMessage += cryptoScramblers[type](message[mIndex],key[kIndex]);
     mIndex++;
     kIndex++;
   }
@@ -49,23 +44,23 @@ function messageScrambler(message, key, type) {
   } else {
     replacePopup(newMessage, type);
   }
-  
 }
 
-function encrypter(mChar, kChar) {
-  //take in a message character and a key character and use vignere cipher function to encrypt the message char using the key char as a key.
-  //Cipher Encryption function: (mCharIndex + kCharIndex) % 26
-  const newIndex = (charLibrary.indexOf(mChar) + charLibrary.indexOf(kChar)) % charLibrary.length;
-  const newChar = charLibrary[newIndex];
-  return newChar;
-}
-
-function decrypter(cChar, kChar) {
-  //take in a cipher character and the key character and use vignere cipher function to decrypt the message char using the key char as a key.
-  //Cipher Decryption function: (cCharIndex - kCharIndex + 26) % 26
-  const newIndex = (charLibrary.indexOf(cChar) - charLibrary.indexOf(kChar) + charLibrary.length) % charLibrary.length;
-  const newChar = charLibrary[newIndex];
-  return newChar;
+const cryptoScramblers = {
+  encrypter: function (mChar, kChar) {
+    //take in a message character and a key character and use vignere cipher function to encrypt the message char using the key char as a key.
+    //Cipher Encryption function: (mCharIndex + kCharIndex) % 26
+    const newIndex = (charLibrary.indexOf(mChar) + charLibrary.indexOf(kChar)) % charLibrary.length;
+    const newChar = charLibrary[newIndex];
+    return newChar;
+  },
+  decrypter: function decrypter(cChar, kChar) {
+    //take in a cipher character and the key character and use vignere cipher function to decrypt the message char using the key char as a key.
+    //Cipher Decryption function: (cCharIndex - kCharIndex + 26) % 26
+    const newIndex = (charLibrary.indexOf(cChar) - charLibrary.indexOf(kChar) + charLibrary.length) % charLibrary.length;
+    const newChar = charLibrary[newIndex];
+    return newChar;
+  }
 }
 
 function createPopup(message, crypt) {
